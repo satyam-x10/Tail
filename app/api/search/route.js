@@ -7,8 +7,6 @@ export async function GET(request) {
     const url = new URL(request.url);
     const link = url.searchParams.get("link");
 
-    console.log("Search request received for link:", link);
-
     if (!link) {
       return NextResponse.json({ error: "No link provided" }, { status: 400 });
     }
@@ -16,13 +14,10 @@ export async function GET(request) {
     // Perform your search logic here with the provided link
     const websiteData = await fetchWebsiteData(link);
 
-    // console.log("Website data:", websiteData);
     const apiPrompt = prompt + websiteData + `. And the website url is ${link}.`;
-    console.log("Prompt:", apiPrompt);
     
     const result = await askGemini(apiPrompt);
 
-    console.log("Result:", result);
 
     return NextResponse.json(result);
   } catch (error) {
