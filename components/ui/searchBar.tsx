@@ -21,7 +21,6 @@ const SearchBar = () => {
     }
 
     try {
-      console.log('Search started with URL:', url);
       const encodedUrl = encodeURIComponent(url);
       router.push(`/report?link=${encodedUrl}`);
     } catch (error) {

@@ -1,5 +1,6 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+
+import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import startSearch from '../../hooks/startSearch';
 
@@ -25,7 +26,7 @@ const Page = () => {
           setIsLoading(false);
         });
     }
-  }, [link]);
+  }, [link, isValidLink]); // Include isValidLink in the dependency array
 
   console.log('Link:', link);
 
@@ -60,4 +61,10 @@ const Page = () => {
   );
 };
 
-export default Page;
+const PageWrapper = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <Page />
+  </Suspense>
+);
+
+export default PageWrapper;
